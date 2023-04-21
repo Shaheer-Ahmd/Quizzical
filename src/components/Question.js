@@ -1,5 +1,5 @@
 import React from 'react';
-import "./style.css";
+import "../style.css";
 import Option from './Option';
 
 export default function Question({id, playing, score, setScore, selections, setSelections, submitted, correct_answer, incorrect_answers, question}) {
