@@ -1,5 +1,6 @@
 # Quizzical App
 This is a React-based trivia game app called "Quizzical". It fetches 5 questions from the Open Trivia Database API, displays them one by one, and allows the user to select an answer for each question. After all the questions are answered, the user can check their score and start a new session.
+<img src = "./Preview.png"></img>
 
 # App Components
 ## App.js
