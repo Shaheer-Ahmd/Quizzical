@@ -1,25 +1,59 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import './style.css'
+import Intro from './Intro'
+import Question from './Question'
+import {nanoid} from 'nanoid'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+export default function App() {
+    
+    const [playing, setPlaying] = React.useState(false)
+    const [apiquestions, setApiquestions] = React.useState([])
+    const [submitted, setSubmitted] = React.useState(false)
+    const [selections, setSelections] = React.useState({})
+    const [score, setScore] = React.useState(0)
+
+    React.useEffect(()=>{
+        if(!submitted) {
+        fetch("https://opentdb.com/api.php?amount=5&category=15&difficulty=medium&type=multiple")
+        .then(res=>res.json())
+        .then(data=>setApiquestions(data.results))}
+       
+    },[submitted])
+    
+    
+    const questions = apiquestions.map((apiquestion,index)=>{
+        const id = nanoid()
+    return (
+    <Question 
+    selections = {selections}
+    key={id}
+    id = {index}
+    setSelections = {setSelections}
+    
+    correct_answer={apiquestion.correct_answer}
+    incorrect_answers={apiquestion.incorrect_answers}
+    question={apiquestion.question}
+    submitted = {submitted}
+    score = {score}
+    setScore ={setScore}/>)}
+    )
+    return (
+        <div>
+            {playing ? 
+            submitted ? ({score}>3 ? <Confetti />: null) :
+            <div className = "main">
+            {questions}
+            <div>
+            <button className ="Checkanswers" onClick ={()=>setSubmitted((prevsubmit)=>!prevsubmit)}>
+                {submitted ? "New Session":"Check Answers"}
+            </button>
+            <h2>
+                Score: {score}
+            </h2>
+            </div>
+            </div>
+             : <Intro playing={playing} setPlaying={setPlaying}/>}
+        </div>
+    )
 }
-
-export default App;
