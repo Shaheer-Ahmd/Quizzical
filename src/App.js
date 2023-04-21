@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.css';
-import Intro from './Intro';
-import Question from './Question';
+import Intro from './components/Intro';
+import Question from './components/Question';
 import { nanoid } from 'nanoid';
 // import Confetti from 'confetti'; Will add Confetti If the score is greater than 3  
 export default function App() {
